@@ -1,26 +1,33 @@
 import { useState } from "react";
 
-export const DeletePostForm = ({ onDeletePost }) => {
-  const [title, setTitle] = useState("");
+export const DeletePostForm = () => {
+  const [id, setId] = useState("");
+
+  const onDeletePost = async ({ id }) => {
+    fetch(`http://localhost:8080/posts/${id}`, {
+      method: "DELETE",
+    });
+  };
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onDeletePost({ title });
+        onDeletePost({ id });
       }}
     >
       <div>
         <input
-          defaultValue={title}
+          value={id}
           onChange={(e) => {
-            setTitle(e.target.value);
+            setId(e.target.value);
           }}
-          id="title"
+          id="id"
           type="text"
-          placeholder="Post's title to delete"
+          placeholder="Post's id to delete"
         />
       </div>
-      <button className="form-button" disabled={title.length === 0}>
+      <button className="form-button" disabled={id.length === 0}>
         Delete Post
       </button>
     </form>

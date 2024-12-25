@@ -14,7 +14,11 @@ export const PostBoard = () => {
     <>
       {posts.map((post) => (
         <div key={post.id} className="post">
-          <h2>{post.title}</h2>
+          <h2>
+            {post.id}
+            <span>. </span>
+            {post.title}
+          </h2>
           <h3>{post.author}</h3>
           {post.content}
         </div>

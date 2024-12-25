@@ -1,24 +1,38 @@
 import { useState } from "react";
 
-export const ModifyPostForm = ({ onModifyPost }) => {
-  const [actualTitle, setActualTitle] = useState("");
+export const ModifyPostForm = () => {
+  const [id, setId] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
+  const [newAuthor, setNewAuthor] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const post = {
+      id,
+      title: newTitle,
+      content: newContent,
+      author: newAuthor,
+    };
+    fetch("http://localhost:8080/posts", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(post),
+    });
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onModifyPost({ actualTitle, newTitle, newContent });
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <div>
         <input
-          value={actualTitle}
-          onChange={(e) => setActualTitle(e.target.value)}
-          id="actualTitle"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          id="id"
           type="text"
-          placeholder="Post's title to Modify"
+          placeholder="Post's id to Modify"
         />
       </div>
       <div>
@@ -32,6 +46,15 @@ export const ModifyPostForm = ({ onModifyPost }) => {
       </div>
       <div>
         <input
+          value={newAuthor}
+          onChange={(e) => setNewAuthor(e.target.value)}
+          id="newAuthor"
+          type="text"
+          placeholder="New author"
+        />
+      </div>
+      <div>
+        <input
           value={newContent}
           onChange={(e) => setNewContent(e.target.value)}
           id="newContent"
@@ -39,7 +62,7 @@ export const ModifyPostForm = ({ onModifyPost }) => {
           placeholder="New content"
         />
       </div>
-      <button className="form-button" disabled={actualTitle.length === 0}>
+      <button className="form-button" disabled={id.length === 0}>
         Modify Post
       </button>
     </form>
