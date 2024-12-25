@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const NavBar = ({ setActiveForm }) => {
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeButton, setActiveButton] = useState("Add Post");
 
   const buttons = ["Add Post", "Delete Post", "Modify Post"];
 
@@ -9,6 +9,10 @@ export const NavBar = ({ setActiveForm }) => {
     setActiveButton(buttonName);
     setActiveForm(buttonName);
   };
+
+  useEffect(() => {
+    setActiveForm("Add Post");
+  }, [setActiveForm]);
 
   return (
     <div id="navbar">

@@ -3,6 +3,8 @@ import { useState } from "react";
 import { AddPostForm } from "./components/AddPostForm";
 import { DeletePostForm } from "./components/DeletePostForm";
 import { ModifyPostForm } from "./components/ModifyPostForm";
+import { PostBoard } from "./components/PostBoard";
+import { Footer } from "./components/Footer";
 
 function App() {
   const [activeForm, setActiveForm] = useState(null);
@@ -23,7 +25,11 @@ function App() {
   return (
     <>
       <NavBar setActiveForm={setActiveForm} />
-      <main>{renderForm()}</main>
+      <main>
+        <div id="formHandler">{renderForm()}</div>
+        <PostBoard />
+      </main>
+      <Footer />
     </>
   );
 }

@@ -81,3 +81,26 @@ input {
 .form-button {
   margin-top: 1%;
 }
+#formHandler {
+  min-height: 320px;
+}
+.post {
+  border: #646cff;
+  text-align: center;
+  width: 50%;
+  border: 3px solid #646cff;
+  background-color: var(--color-bg2);
+  border-radius: 20px;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#footer {
+  padding: 10px;
+  background-color: var(--color-bg2);
+  border-bottom: 2px solid var(--color-brand1);
+  border-top: 2px solid var(--color-brand1);
+  margin-top: 2%;
+  text-align: center;
+}

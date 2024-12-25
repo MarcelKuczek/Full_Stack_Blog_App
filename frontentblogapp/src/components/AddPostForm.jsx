@@ -1,14 +1,32 @@
 import { useState } from "react";
 
-export const AddPostForm = ({ onAddPost }) => {
+export const AddPostForm = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        onAddPost({ title, author, content });
+        const post = { title, author, content };
+        fetch("http://localhost:8080/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(post),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Post added successfully:", data);
+          })
+          .catch((error) => {
+            console.error("There was an error:", error);
+          });
       }}
     >
       <div>
@@ -24,7 +42,7 @@ export const AddPostForm = ({ onAddPost }) => {
       </div>
       <div>
         <input
-          defaultValue={author}
+          value={author}
           onChange={(e) => {
             setAuthor(e.target.value);
           }}
@@ -35,7 +53,7 @@ export const AddPostForm = ({ onAddPost }) => {
       </div>
       <div>
         <input
-          defaultValue={content}
+          value={content}
           onChange={(e) => {
             setContent(e.target.value);
           }}
