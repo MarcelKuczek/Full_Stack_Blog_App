@@ -4,9 +4,24 @@ export const DeletePostForm = () => {
   const [id, setId] = useState("");
 
   const onDeletePost = async ({ id }) => {
-    fetch(`http://localhost:8080/posts/${id}`, {
-      method: "DELETE",
-    });
+    if (!id || isNaN(Number(id))) {
+      alert("Invalid post ID. Please provide a numeric ID.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8080/posts/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      alert("Post deleted successfully.");
+    } catch (error) {
+      alert("Wrong id: " + error.message);
+    }
   };
 
   return (

@@ -13,15 +13,23 @@ export const PostBoard = () => {
   return (
     <>
       {posts.map((post) => (
-        <div key={post.id} className="post">
-          <h2>
-            {post.id}
-            <span>. </span>
-            {post.title}
-          </h2>
-          <h3>{post.author}</h3>
-          {post.content}
-        </div>
+        <>
+          <article className="post">
+            <div key={post.id} className="postContent">
+              <h2>
+                {post.id}
+                <span>. </span>
+                {post.title}
+              </h2>
+              <h3>{post.author}</h3>
+              {post.content}
+            </div>
+            <button className="addCommentButton">Add Comment</button>
+            <form className="addCommentForm">
+              <input type="text"></input>
+            </form>
+          </article>
+        </>
       ))}
     </>
   );

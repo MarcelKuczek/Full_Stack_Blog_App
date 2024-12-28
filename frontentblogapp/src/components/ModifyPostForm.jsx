@@ -7,6 +7,10 @@ export const ModifyPostForm = () => {
   const [newAuthor, setNewAuthor] = useState("");
 
   const handleSubmit = async (e) => {
+    if (!id || isNaN(Number(id))) {
+      alert("Invalid post ID. Please provide a numeric ID.");
+      return;
+    }
     e.preventDefault();
 
     const post = {
@@ -15,13 +19,21 @@ export const ModifyPostForm = () => {
       content: newContent,
       author: newAuthor,
     };
-    fetch("http://localhost:8080/posts", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
+    try {
+      const response = await fetch("http://localhost:8080/posts", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      alert("Post updated successfully!");
+    } catch (error) {
+      alert("Wrong id: " + error.message);
+    }
   };
 
   return (
@@ -62,7 +74,15 @@ export const ModifyPostForm = () => {
           placeholder="New content"
         />
       </div>
-      <button className="form-button" disabled={id.length === 0}>
+      <button
+        className="form-button"
+        disabled={
+          id.length === 0 ||
+          newTitle.length === 0 ||
+          newAuthor.length === 0 ||
+          newContent.length === 0
+        }
+      >
         Modify Post
       </button>
     </form>

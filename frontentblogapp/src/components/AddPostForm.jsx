@@ -5,30 +5,26 @@ export const AddPostForm = () => {
   const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const post = { title, author, content };
+    try {
+      const response = await fetch("http://localhost:8080/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      alert("Post added successfully!");
+    } catch (error) {
+      alert("Wrong id: " + error.message);
+    }
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const post = { title, author, content };
-        fetch("http://localhost:8080/posts", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(post),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Post added successfully:", data);
-          })
-          .catch((error) => {
-            console.error("There was an error:", error);
-          });
-      }}
-    >
+    <form onSubmit={handleSubmit}>
       <div>
         <input
           defaultValue={title}
