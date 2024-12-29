@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AddCommentForm } from "./AddCommentForm";
 
 export const PostBoard = () => {
   const [posts, setPosts] = useState([]);
@@ -24,10 +25,7 @@ export const PostBoard = () => {
               <h3>{post.author}</h3>
               {post.content}
             </div>
-            <button className="addCommentButton">Add Comment</button>
-            <form className="addCommentForm">
-              <input type="text"></input>
-            </form>
+            <AddCommentForm />
           </article>
         </>
       ))}
