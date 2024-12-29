@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { AddCommentForm } from "./AddCommentForm";
+import { Comments } from "./Comments";
 
 export const PostBoard = () => {
   const [posts, setPosts] = useState([]);
@@ -15,8 +16,8 @@ export const PostBoard = () => {
     <>
       {posts.map((post) => (
         <>
-          <article className="post">
-            <div key={post.id} className="postContent">
+          <article className="post" key={post.id}>
+            <div className="postContent">
               <h2>
                 {post.id}
                 <span>. </span>
@@ -26,6 +27,7 @@ export const PostBoard = () => {
               {post.content}
             </div>
             <AddCommentForm />
+            <Comments postId={post.id} />
           </article>
         </>
       ))}

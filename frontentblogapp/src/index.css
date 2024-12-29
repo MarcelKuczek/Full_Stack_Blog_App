@@ -95,6 +95,9 @@ input {
   text-align: center;
   border: 3px solid #646cff;
 }
+.comment {
+  padding: 2px;
+}
 .addCommentButton {
   width: 20%;
   margin-top: 2%;

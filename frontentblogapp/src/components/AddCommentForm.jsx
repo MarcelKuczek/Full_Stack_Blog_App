@@ -9,9 +9,11 @@ export const AddCommentForm = () => {
         Add Comment
       </button>
       {isFormShown && (
-        <form className="addCommentForm">
-          <input type="text"></input>
-        </form>
+        <>
+          <form className="addCommentForm">
+            <input type="text"></input>
+          </form>
+        </>
       )}
     </>
   );
