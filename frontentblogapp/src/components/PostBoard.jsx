@@ -26,7 +26,7 @@ export const PostBoard = () => {
               <h3>{post.author}</h3>
               {post.content}
             </div>
-            <AddCommentForm />
+            <AddCommentForm postId={post.id} />
             <Comments postId={post.id} />
           </article>
         </>
